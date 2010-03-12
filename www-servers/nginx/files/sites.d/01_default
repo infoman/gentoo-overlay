@@ -1,0 +1,15 @@
+server {
+	listen			80 default;
+	passenger_enabled	on;
+	rails_env		development;
+	root			/var/www/default/public;
+	access_log		/var/www/default/log/access.log main;
+	error_log		/var/www/default/log/error.log info;
+}
+
+server {
+	listen			443 default;
+	ssl			on;
+	rewrite			^ http://$host/ permanent;
+}
+
