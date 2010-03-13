@@ -6,7 +6,7 @@ Installation
 ------------
 You can add this overlay using layman with:
 
-    layman -f -o http://github.com/doobry/gentoo-overlay/raw/master/layman.xml -a doobry
+    layman -f -o http://github.com/doobry/doobry-overlay/raw/master/layman.xml -a doobry
  
 You should also add the url to the list of remote overlays in /etc/layman/layman.cfg
 
