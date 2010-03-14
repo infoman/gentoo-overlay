@@ -6,7 +6,7 @@ EAPI=3
 
 inherit java-pkg-2
 
-MY_P="${PN%%-bin}-${PV}.final"
+MY_P="${P}.final"
 
 DESCRIPTION="The Scala Programming Language"
 HOMEPAGE="http://www.scala-lang.org/"
