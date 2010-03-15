@@ -3,8 +3,10 @@ app-editors/gedit
 app-text/evince
 gnome-base/gdm
 gnome-base/gnome-light
+gnome-extra/gcalctool
 gnome-extra/gconf-editor
 gnome-extra/gnome-media
+gnome-extra/gnome-utils
+media-gfx/eog
 media-video/totem
 x11-wm/compiz-fusion
-gnome-extra/gcalctool
