@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-interix ~amd64-linux ~x86-linux"
 IUSE="eds"
 
-RDEPEND=">=dev-util/git-1.4.4.3
+RDEPEND=">=dev-vcs/git-1.4.4.3
 		 >=dev-libs/glib-2.18
 		 >=x11-libs/gtk+-2.10
 		 >=x11-libs/gtksourceview-2.8
