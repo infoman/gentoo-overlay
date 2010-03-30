@@ -76,7 +76,5 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# https://bugs.launchpad.net/inkscape/+bug/487038
-	epatch "${FILESDIR}/inkscape-poppler-0.12.2.patch"
 	sh autogen.sh || die "autogen.sh failed"
 }
