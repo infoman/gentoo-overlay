@@ -7,9 +7,10 @@ server {
 	error_log		/var/www/default/log/error.log info;
 }
 
-server {
-	listen			443 default;
-	ssl			on;
-	rewrite			^ http://$host/ permanent;
-}
+# This will only work if you have ssl and rewrite installed
+#server {
+#	listen			443 default;
+#	ssl			on;
+#	rewrite			^ http://$host/ permanent;
+#}
 
