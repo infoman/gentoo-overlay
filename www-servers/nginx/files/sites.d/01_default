@@ -1,13 +1,14 @@
+# Commented lines will only work if passenger is installed
 server {
 	listen			80 default;
-	passenger_enabled	on;
-	rails_env		development;
+#	passenger_enabled	on;
+#	rails_env		development;
 	root			/var/www/default/public;
 	access_log		/var/www/default/log/access.log main;
 	error_log		/var/www/default/log/error.log info;
 }
 
-# This will only work if you have ssl and rewrite installed
+# This will only work if you have ssl and rewrite are installed
 #server {
 #	listen			443 default;
 #	ssl			on;
