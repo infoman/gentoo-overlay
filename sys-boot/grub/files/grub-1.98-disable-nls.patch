@@ -1,0 +1,135 @@
+diff -ru grub-1.98.orig/include/grub/i18n.h grub-1.98/include/grub/i18n.h
+--- grub-1.98.orig/include/grub/i18n.h	2010-03-06 20:51:37.000000000 +0000
++++ grub-1.98/include/grub/i18n.h	2010-04-17 12:16:02.101038329 +0100
+@@ -25,7 +25,7 @@
+ extern const char *(*EXPORT_VAR(grub_gettext)) (const char *s);
+ 
+ /* NLS can be disabled through the configure --disable-nls option.  */
+-#if ENABLE_NLS
++#ifdef ENABLE_NLS
+ 
+ # ifdef GRUB_UTIL
+ 
+diff -ru grub-1.98.orig/Makefile.in grub-1.98/Makefile.in
+--- grub-1.98.orig/Makefile.in	2010-03-06 20:51:37.000000000 +0000
++++ grub-1.98/Makefile.in	2010-04-17 11:25:56.684892859 +0100
+@@ -343,13 +343,6 @@
+ 	  dest="`echo $$file | sed 's,.*/,,'`"; \
+ 	  $(INSTALL_DATA) $$dir$$file $(DESTDIR)$(libdir)/grub/$$dest; \
+ 	done
+-	@langs='$(LINGUAS)'; \
+-	for lang in $$langs; do \
+-	  $(SHELL) $(mkinstalldirs) $(DESTDIR)/$(datadir)/locale/$$lang/LC_MESSAGES; \
+-	  file="po/$$lang.mo"; \
+-	  if test -f "$$file"; then dir=; else dir="$(srcdir)/"; fi; \
+-	  $(INSTALL_DATA) $$dir$$file $(DESTDIR)/$(datadir)/locale/$$lang/LC_MESSAGES/$(PACKAGE).mo; \
+-	done
+ 	$(SHELL) $(mkinstalldirs) $(DESTDIR)$(infodir)
+ 	@list='$(info_INFOS)'; \
+ 	for file in $$list; do \
+diff -ru grub-1.98.orig/util/grub.d/00_header.in grub-1.98/util/grub.d/00_header.in
+--- grub-1.98.orig/util/grub.d/00_header.in	2010-03-06 20:51:37.000000000 +0000
++++ grub-1.98/util/grub.d/00_header.in	2010-04-17 12:12:18.683123631 +0100
+@@ -132,16 +132,6 @@
+   ;;
+ esac
+ 
+-# Gettext variables and module
+-if [ "x${LANG}" != "xC" ] ; then
+-    prepare_grub_to_access_device $(${grub_probe} --target=device ${locale_dir})
+-  cat << EOF
+-set locale_dir=(\$root)$(make_system_path_relative_to_its_root ${locale_dir})
+-set lang=${grub_lang}
+-insmod gettext
+-EOF
+-fi
+-
+ if [ "x${GRUB_HIDDEN_TIMEOUT}" != "x" ] ; then
+   if [ "x${GRUB_HIDDEN_TIMEOUT_QUIET}" = "xtrue" ] ; then
+     verbose=
+diff -ru grub-1.98.orig/util/grub.d/10_hurd.in grub-1.98/util/grub.d/10_hurd.in
+--- grub-1.98.orig/util/grub.d/10_hurd.in	2010-03-06 20:51:37.000000000 +0000
++++ grub-1.98/util/grub.d/10_hurd.in	2010-04-17 11:38:20.051829254 +0100
+@@ -76,13 +76,13 @@
+ EOF
+ prepare_grub_to_access_device ${GRUB_DEVICE_BOOT} | sed -e "s/^/\t/"
+ cat << EOF
+-	echo		$(gettext "Loading GNU Mach ...")
++	echo		"Loading GNU Mach ..."
+ 	multiboot	${kernel} root=device:${GRUB_DEVICE#/dev/}
+ EOF
+ save_default_entry | sed -e "s/^/\t/"
+ prepare_grub_to_access_device ${GRUB_DEVICE} | sed -e "s/^/\t/"
+ cat << EOF
+-	echo		$(gettext "Loading the Hurd ...")
++	echo		"Loading the Hurd ..."
+ 	module		/hurd/${hurd_fs}.static ${hurd_fs} --readonly \\
+ 			--multiboot-command-line='\${kernel-command-line}' \\
+ 			--host-priv-port='\${host-port}' \\
+@@ -98,13 +98,13 @@
+ EOF
+ prepare_grub_to_access_device ${GRUB_DEVICE_BOOT} | sed -e "s/^/\t/"
+ cat << EOF
+-	echo		$(gettext "Loading GNU Mach ...")
++	echo		"Loading GNU Mach ..."
+ 	multiboot	${kernel} root=device:${GRUB_DEVICE#/dev/} -s
+ EOF
+ save_default_entry | sed -e "s/^/\t/"
+ prepare_grub_to_access_device ${GRUB_DEVICE} | sed -e "s/^/\t/"
+ cat << EOF
+-	echo		$(gettext "Loading the Hurd ...")
++	echo		"Loading the Hurd ..."
+ 	module		/hurd/${hurd_fs}.static ${hurd_fs} \\
+ 			--multiboot-command-line='\${kernel-command-line}' \\
+ 			--host-priv-port='\${host-port}' \\
+diff -ru grub-1.98.orig/util/grub.d/10_kfreebsd.in grub-1.98/util/grub.d/10_kfreebsd.in
+--- grub-1.98.orig/util/grub.d/10_kfreebsd.in	2010-03-06 20:51:37.000000000 +0000
++++ grub-1.98/util/grub.d/10_kfreebsd.in	2010-04-17 11:39:13.831832533 +0100
+@@ -44,7 +44,7 @@
+   version="$2"
+   recovery="$3"	# not used yet
+   args="$4"	# not used yet
+-  title="$(gettext "%s, with kFreeBSD %s")"
++  title="%s, with kFreeBSD %s"
+   printf "menuentry \"${title}\" ${CLASS} {\n" "${os}" "${version}"
+   save_default_entry | sed -e "s/^/\t/"
+   if [ -z "${prepare_boot_cache}" ]; then
+@@ -52,7 +52,7 @@
+   fi
+   printf '%s\n' "${prepare_boot_cache}"
+   cat << EOF
+-	echo			$(printf "$(gettext "Loading kernel of FreeBSD %s ...")" ${version})
++	echo			$(printf "Loading kernel of FreeBSD %s ..." ${version})
+ 	kfreebsd		${rel_dirname}/${basename}
+ EOF
+ 
+diff -ru grub-1.98.orig/util/grub.d/10_linux.in grub-1.98/util/grub.d/10_linux.in
+--- grub-1.98.orig/util/grub.d/10_linux.in	2010-03-06 20:51:37.000000000 +0000
++++ grub-1.98/util/grub.d/10_linux.in	2010-04-17 12:12:11.712421503 +0100
+@@ -56,9 +56,9 @@
+   recovery="$3"
+   args="$4"
+   if ${recovery} ; then
+-    title="$(gettext "%s, with Linux %s (recovery mode)")"
++    title="%s, with Linux %s (recovery mode)"
+   else
+-    title="$(gettext "%s, with Linux %s")"
++    title="%s, with Linux %s"
+   fi
+   printf "menuentry \"${title}\" ${CLASS} {\n" "${os}" "${version}"
+   save_default_entry | sed -e "s/^/\t/"
+@@ -83,12 +83,12 @@
+   fi
+   printf '%s\n' "${prepare_boot_cache}"
+   cat << EOF
+-	echo	$(printf "$(gettext "Loading Linux %s ...")" ${version})
++	echo	$(printf "Loading Linux %s ..." ${version})
+ 	linux	${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
+ EOF
+   if test -n "${initrd}" ; then
+     cat << EOF
+-	echo	$(gettext "Loading initial ramdisk ...")
++	echo	"Loading initial ramdisk ..."
+ 	initrd	${rel_dirname}/${initrd}
+ EOF
+   fi
