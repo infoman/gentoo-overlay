@@ -4,7 +4,9 @@
 
 EAPI=2
 
-inherit eutils
+WANT_AUTOMAKE=1.9
+
+inherit autotools eutils
 
 MY_P="kBuild-${PV}-p2-src"
 DESCRIPTION="A makefile framework for writing simple makefiles for complex tasks"
@@ -16,13 +18,14 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-util/cvs"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P/-src}"
 
 src_prepare() {
 	cd "${S}"
+	epatch "${FILESDIR}"/${PN}-unknown-configure-opt.patch
 	epatch "${FILESDIR}"/${PN}-glibc-2.10.patch
 }
 
