@@ -7,6 +7,6 @@
 		src = "git://github.com/doobry/doobry-overlay.git"
 		contact = "chris.beswick@gmail.com">
 		<link>http://github.com/doobry/doobry-overlay</link>
-		<description>Doobry's random ebuilds</description>
+		<description>doobry's random ebuilds</description>
 	</overlay>
 </layman>
