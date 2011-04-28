@@ -1,4 +1,0 @@
-passenger_root			/usr/libexec/passenger;
-passenger_max_instances_per_app	1;
-passenger_pool_idle_time	0;
-rails_spawn_method		conservative;
