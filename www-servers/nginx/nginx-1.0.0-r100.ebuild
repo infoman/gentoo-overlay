@@ -50,7 +50,7 @@ DEPEND="ssl? ( dev-libs/openssl )
 	nginx_modules_http_rewrite? ( >=dev-libs/libpcre-4.2 )
 	nginx_modules_http_secure_link? ( userland_GNU? ( dev-libs/openssl ) )
 	nginx_modules_http_xslt? ( dev-libs/libxml2 dev-libs/libxslt )
-	" # nginx_modules_http_passenger? ( ~dev-ruby/${MODULE_PASSENGER_P} )"
+	nginx_modules_http_passenger? ( ~dev-ruby/${MODULE_PASSENGER_P}[nginx] )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
