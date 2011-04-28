@@ -1,6 +1,7 @@
-# Commented lines will only work if passenger is installed
+# Commented lines will only work if ssl or passenger is installed
 server {
 	listen			80 default;
+#	listen			443 default ssl;
 #	passenger_enabled	on;
 #	rails_env		development;
 	root			/var/www/default/public;
