@@ -4,7 +4,7 @@
 
 EAPI=3
 
-USE_RUBY="ruby19"
+USE_RUBY="ruby19 ree18"
 
 inherit ruby-ng prefix
 
@@ -20,6 +20,21 @@ IUSE=""
 DEPEND="ruby_targets_ruby19? ( >=dev-lang/ruby-1.9.2 )"
 RDEPEND="${DEPEND}"
 
+all_ruby_prepare() {
+	mkdir -p lib/rubygems/defaults || die
+	cp "${FILESDIR}/gentoo-defaults.rb" lib/rubygems/defaults/operating_system.rb || die
+	eprefixify lib/rubygems/defaults/operating_system.rb
+
+	case "${RUBY}" in
+		*ruby19)
+			touch "lib/auto_gem.rb" || die
+			;;
+		*)
+			cp "${FILESDIR}/auto_gem.rb" "lib/auto_gem.rb" || die
+			;;
+	esac
+}
+
 each_ruby_compile() {
 	# change bin/gem interpreter to versioned ruby
 	sed -i -e 's:#!.*:#!'"${RUBY}"':' bin/gem
@@ -31,6 +46,10 @@ each_ruby_install() {
 	doruby -r lib/*
 
 	newbin bin/gem $(basename ${RUBY} | sed -e 's:ruby:gem:') || die
+}
+
+all_ruby_install() {
+	doenvd "${FILESDIR}/10rubygems"
 }
 
 pkg_postinst() {
