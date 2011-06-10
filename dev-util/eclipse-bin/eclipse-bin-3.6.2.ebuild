@@ -6,16 +6,12 @@ EAPI=3
 
 inherit eutils
 
-if use ppc; then MY_ARCH="ppc"
-elif use x86; then MY_ARCH="x86"
-elif use amd64; then MY_ARCH="x86_64"
-fi
-
-MY_P="eclipse-platform-${PV}-linux-gtk-${MY_ARCH}"
-
 DESCRIPTION="Eclipse Platform Runtime Binary"
 HOMEPAGE="http://www.eclipse.org/"
-SRC_URI="http://download.eclipse.org/eclipse/downloads/drops/R-3.5.2-201002111343/${MY_P}.tar.gz"
+URL_BASE="http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/eclipse/downloads/drops/R-3.6.2-201102101200/eclipse-platform-${PV}-linux-gtk"
+SRC_URI="amd64? ( ${URL_BASE}-x86_64.tar.gz )
+	x86? ( ${URL_BASE}.tar.gz )
+	ppc? ( ${URL_BASE}-ppc.tar.gz )"
 
 LICENSE=""
 SLOT="0"
@@ -25,26 +21,21 @@ IUSE=""
 DEPEND=""
 RDEPEND=">=virtual/jre-1.5"
 
-S="${WORKDIR}/eclipse"
-
-ECLIPSE_DIR="/opt/eclipse"
-
 QA_PRESTRIPPED="opt/eclipse/libcairo-swt.so"
 
-src_install() {
-	newicon plugins/org.eclipse.platform_*/eclipse48.png eclipse-icon.png
-	domenu "${FILESDIR}/${PN}.desktop"
+S="${WORKDIR}/eclipse"
 
-	insinto "${ECLIPSE_DIR}"
-	doins -r configuration
-	doins -r features
-	doins -r p2
-	doins -r plugins
-	doins artifacts.xml
-	doins eclipse.ini
-	doins libcairo-swt.so
-	exeinto "${ECLIPSE_DIR}"
-	doexe eclipse
+src_install() {
+	local destdir="/opt/eclipse"
+
+	newicon plugins/org.eclipse.platform_*/eclipse48.png eclipse.png
+	make_desktop_entry "${EPREFIX}"/usr/bin/eclipse "Eclipse" eclipse 'Application;Development;' || die
+
+	insinto "${destdir}"
+	doins -r configuration features p2 plugins artifacts.xml eclipse.ini libcairo-swt.so .eclipseproduct || die
+	exeinto "${destdir}"
+	doexe eclipse || die
 	
-	dosym "${ECLIPSE_DIR}/eclipse" "${DESTTREE}/bin/eclipse"
+	dosym "${destdir}/eclipse" "${DESTTREE}/bin/eclipse" || die
 }
+
