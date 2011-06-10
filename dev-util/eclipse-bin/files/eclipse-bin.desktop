@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Eclipse
-Comment=Eclipse Platform
-Exec=/usr/bin/eclipse
-Icon=eclipse-icon
-Terminal=false
-Type=Application
-Categories=Application;Development;
