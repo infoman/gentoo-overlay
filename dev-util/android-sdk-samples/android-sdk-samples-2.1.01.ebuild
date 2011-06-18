@@ -21,11 +21,9 @@ IUSE=""
 DEPEND=""
 RDEPEND="dev-util/android-sdk-platform"
 
-S="${WORKDIR}/${MY_P}"
-
-ANDROID_SAMPLES_DIR="/opt/android-sdk/samples"
+MY_TARGET="${EPREFIX}/opt/android-sdk/samples"
 
 src_install() {
-	insinto "${ANDROID_SAMPLES_DIR}/android-$(get_version_component_range 1-$(get_last_version_component_index))"
-	doins -r *
+	dodir "${MY_TARGET}"
+	mv ${MY_P} "${D}/${MY_TARGET}/android-$(get_version_component_range 1-$(get_last_version_component_index))" || die
 }

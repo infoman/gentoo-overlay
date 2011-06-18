@@ -1,1 +1,1 @@
-android-sdk-platform-2.1.01.ebuild
+android-sdk-platform-1.1.1.ebuild

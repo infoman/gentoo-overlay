@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND=">=virtual/jdk-1.5"
+RDEPEND=">=virtual/jdk-1.5
+	app-emulation/emul-linux-x86-sdl"
 
 MY_TARGET="${EPREFIX}/opt/android-sdk"
 
