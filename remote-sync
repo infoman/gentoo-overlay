@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 declare -A REMOTES
 REMOTES=([doobry]='https://github.com/doobry/doobry-overlay.git')
 
