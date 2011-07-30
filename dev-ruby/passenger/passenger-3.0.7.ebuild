@@ -4,7 +4,7 @@
 
 EAPI=3
 
-USE_RUBY="ruby19 ree18"
+USE_RUBY="ruby18 ruby19 ree18"
 
 inherit flag-o-matic ruby-ng
 
