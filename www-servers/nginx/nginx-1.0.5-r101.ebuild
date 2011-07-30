@@ -65,6 +65,13 @@ pkg_setup() {
 		ewarn "http://bugs.gentoo.org/show_bug.cgi?id=274614"
 	fi
 
+	if [[ -n $NGINX_ADD_MODULES ]]; then
+		ewarn "You are building custom modules via \$NGINX_ADD_MODULES!"
+		ewarn "This nginx installation is not supported!"
+		ewarn "Make sure you can reproduce the bug without those modules"
+		ewarn "_before_ reporting bugs."
+	fi
+
 	use nginx_modules_http_passenger && {
 		#ruby-ng_pkg_setup
 		# fix strict-aliasing warnings in boost portion of passenger module
@@ -158,6 +165,11 @@ src_configure() {
 		myconf="${myconf} --with-mail"
 		use ssl && myconf="${myconf} --with-mail_ssl_module"
 	fi
+
+	# custom modules
+	for mod in $NGINX_ADD_MODULES; do
+		myconf="${myconf} --add-module=${mod}"
+	done
 
 	# http://bugs.gentoo.org/show_bug.cgi?id=286772
 	export LANG=C LC_ALL=C
