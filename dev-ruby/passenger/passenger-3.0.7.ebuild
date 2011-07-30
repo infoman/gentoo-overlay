@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="apache nginx"
 
-DEPEND=""
+DEPEND="!<www-servers/nginx-1.0.0"
 RDEPEND="${DEPEND}"
 
 ruby_add_rdepend "
