@@ -1,0 +1,10 @@
+#!/bin/bash
+
+declare -A REMOTES
+REMOTES=([doobry]='https://github.com/doobry/doobry-overlay.git')
+
+echo "Please ignore 'fatal: remote %name% already exists.' messages"
+for REMOTE in ${!REMOTES[@]}; do
+	git remote add "${REMOTE}" "${REMOTES["${REMOTE}"]}"
+	git pull -s subtree "${REMOTE}" "master"
+done
