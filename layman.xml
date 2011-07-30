@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layman>
+	<overlay
+		name = "infoman"
+		status="unofficial"
+		type = "git"
+		src = "git://github.com/infoman/gentoo-overlay.git"
+		contact = "infoman1985@gmail.com">
+		<link>http://github.com/infoman/gentoo-overlay</link>
+		<description>infoman's custom ebuilds (and some 3rd party ones)</description>
+	</overlay>
+</layman>
