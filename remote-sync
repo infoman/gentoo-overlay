@@ -3,7 +3,8 @@
 cd "$(dirname "$0")"
 
 declare -A REMOTES
-REMOTES=([doobry]='https://github.com/doobry/doobry-overlay.git')
+REMOTES=([doobry]='https://github.com/doobry/doobry-overlay.git'
+         [aegypius]='https://github.com/aegypius/overlay.git')
 
 echo "Please ignore 'fatal: remote %name% already exists.' messages"
 for REMOTE in ${!REMOTES[@]}; do
