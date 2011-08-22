@@ -6,7 +6,8 @@ inherit eutils
 
 DESCRIPTION="The world's leading IDE for building open web applications"
 HOMEPAGE="http://www.aptana.com"
-SRC_URI="http://download.aptana.com/studio3/standalone/${PV}/linux/Aptana_Studio_3_Setup_Linux_x86_${PV}.zip"
+SRC_URI="x86? ( http://download.aptana.com/studio3/standalone/${PV}/linux/Aptana_Studio_3_Setup_Linux_x86_${PV}.zip )
+	amd64? ( http://download.aptana.com/studio3/standalone/${PV}/linux/Aptana_Studio_3_Setup_Linux_x86_64_${PV}.zip )"
 
 LICENSE="MPL-1.1"
 SLOT="0"
@@ -16,9 +17,10 @@ EAPI=2
 
 DEPEND="app-arch/unzip"
 RDEPEND=">=virtual/jre-1.5
-   || ( >=net-libs/xulrunner-1.8 net-libs/xulrunner:1.8 )
-   x86? ( dev-libs/expat )
-   amd64? ( app-emulation/emul-linux-x86-baselibs )"
+	media-libs/jpeg:62
+	media-libs/libpng:1.2
+	gnome-base/gconf:2
+	dev-libs/expat"
 
 src_install() {
 	einfo "Installing Aptana ${PV}"
@@ -42,6 +44,6 @@ src_install() {
 	echo "/opt/${PN}/AptanaStudio3" >> ${T}/AptanaStudio3
 	dobin ${T}/AptanaStudio3
 
-	newicon plugins/com.aptana.branding_3.0.0.1285021451/studio32.gif AptanaStudio.png
+	newicon "icon.xpm" "AptanaStudio.xpm"
 	make_desktop_entry "AptanaStudio3" "Aptana Studio" AptanaStudio "Development"
 }
