@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=3
 
 inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic
 
-MODULE_PASSENGER_P="passenger-3.0.7"
+MODULE_PASSENGER_P="passenger-3.0.11"
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="http://nginx.net/"
