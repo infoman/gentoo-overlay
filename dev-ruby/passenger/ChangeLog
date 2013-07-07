@@ -1,9 +1,0 @@
-# ChangeLog for dev-ruby/passenger
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*passenger-3.0.11 (10 Feb 2012)
-
-  10 Feb 2012; Denis Misiurca <infoman1985@gmail.com> +passenger-3.0.11.ebuild:
-  Updated passenger version to 3.0.11
-
