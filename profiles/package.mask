@@ -1,0 +1,5 @@
+# Denis Misiurca <infoman1985@gmail.com> (09 Jul 2013)
+# These Sphinx ebuilds were added for my personal use as I need the new
+# features. As this is beta, I am masking them. Please use official
+# Sphinx ebuilds from the Portage tree if possible.
+=app-misc/sphinx-2.1.1_beta
