@@ -1,3 +1,9 @@
+WARNING
+=======
+
+This overlay contains outdated ebuilds. Please use official ones or find
+another overlay if possible. Updates here are rare and irregular.
+
 How to add this repo using layman
 =================================
 
